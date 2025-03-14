@@ -440,7 +440,8 @@ namespace CFG
 	CFGVAR(Exploits_RapidFire_Min_Ticks_Target_Same, 3);
 	CFGVAR(Exploits_RapidFire_Antiwarp, true);
 	CFGVAR(Exploits_Warp_Key, 0);
-	CFGVAR(Exploits_Warp_Mode, 0); //0 Slow 1 Full
+	CFGVAR(Exploits_Warp_Mode, 0); //0 Slow 1 Full 2 Speedhack
+	CFGVAR(Exploits_Warp_Speedhack_Ticks, 1);
 	CFGVAR(Exploits_Warp_Exploit, 0); //0 None 1 Fake Peek 2 0 Velocity
 	CFGVAR(Exploits_Shifting_Draw_Indicator, true);
 	CFGVAR(Exploits_Shifting_Indicator_Style, 0); //0 Rectangle 1 Circle

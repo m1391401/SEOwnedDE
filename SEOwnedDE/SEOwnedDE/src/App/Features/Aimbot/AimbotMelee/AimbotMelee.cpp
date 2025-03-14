@@ -214,7 +214,8 @@ bool CAimbotMelee::GetTarget(C_TFPlayer* pLocal, C_TFWeaponBase* pWeapon, MeleeT
 
 bool CAimbotMelee::ShouldAim(const CUserCmd* pCmd, C_TFWeaponBase* pWeapon)
 {
-	return CFG::Aimbot_Melee_Aim_Type != 1 || IsFiring(pCmd, pWeapon);
+	// Always death-stare on speedhack
+	return CFG::Aimbot_Melee_Aim_Type != 1 || IsFiring(pCmd, pWeapon) || (CFG::Exploits_Warp_Mode == 2 && Shifting::bShifting && Shifting::bShiftingWarp);
 }
 
 void CAimbotMelee::Aim(CUserCmd* pCmd, C_TFPlayer* pLocal, C_TFWeaponBase* pWeapon, const Vec3& vAngles)
@@ -224,7 +225,7 @@ void CAimbotMelee::Aim(CUserCmd* pCmd, C_TFPlayer* pLocal, C_TFWeaponBase* pWeap
 
 	switch (CFG::Aimbot_Melee_Aim_Type)
 	{
-		// Plaint
+		// Plain
 		case 0:
 		{
 			pCmd->viewangles = vAngleTo;
@@ -234,7 +235,8 @@ void CAimbotMelee::Aim(CUserCmd* pCmd, C_TFPlayer* pLocal, C_TFWeaponBase* pWeap
 		// Silent
 		case 1:
 		{
-			if (IsFiring(pCmd, pWeapon))
+			// Always death-stare on speedhack
+			if (IsFiring(pCmd, pWeapon) || (CFG::Exploits_Warp_Mode == 2 && Shifting::bShifting && Shifting::bShiftingWarp))
 			{
 				H::AimUtils->FixMovement(pCmd, vAngleTo);
 				pCmd->viewangles = vAngleTo;

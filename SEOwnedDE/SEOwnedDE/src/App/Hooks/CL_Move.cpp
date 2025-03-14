@@ -68,6 +68,23 @@ MAKE_HOOK(CL_Move, Signatures::CL_Move.Get(), void, __fastcall,
 		{
 			if (!I::MatSystemSurface->IsCursorVisible() && !I::EngineVGui->IsGameUIVisible() && (H::Input->IsDown(CFG::Exploits_Warp_Key)))
 			{
+				if (CFG::Exploits_Warp_Mode == 2)
+				{
+					Shifting::bShifting = true;
+					Shifting::bShiftingWarp = true;
+
+					for (int n = 0; n < CFG::Exploits_Warp_Speedhack_Ticks; n++)
+					{
+						callOriginal(n == 1);
+					}
+
+					Shifting::bShifting = false;
+					Shifting::bShiftingWarp = false;
+
+					Shifting::nAvailableTicks = 0;
+					return;
+				}
+
 				if (Shifting::nAvailableTicks)
 				{
 					Shifting::bShifting = true;

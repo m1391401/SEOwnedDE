@@ -2261,8 +2261,10 @@ void CMenu::MainWindow()
 
 			SelectSingle("Warp Mode", CFG::Exploits_Warp_Mode, {
 				{ "Slow", 0 },
-				{ "Full", 1 }
+				{ "Full", 1 },
+				{ "Speedhack", 2}
 				});
+			SliderInt("Speedhack Ticks", CFG::Exploits_Warp_Speedhack_Ticks, 1, MAX_COMMANDS, 1);
 
 			SelectSingle("Warp Exploit (for 'Full')", CFG::Exploits_Warp_Exploit, {
 				{ "None", 0 },

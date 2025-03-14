@@ -408,6 +408,14 @@ bool CAimbotHitscan::GetTarget(C_TFPlayer* pLocal, C_TFWeaponBase* pWeapon, Hits
 
 bool CAimbotHitscan::ShouldAim(const CUserCmd* pCmd, C_TFPlayer* pLocal, C_TFWeaponBase* pWeapon)
 {
+	/* 
+	Always death-stare on speedhack
+	Prone to missing otherwise for obvious reasons
+	Should make it death-stare on any tick shifting
+	*/
+	if (CFG::Exploits_Warp_Mode == 2 && Shifting::bShifting && Shifting::bShiftingWarp)
+		return true;
+
 	if (CFG::Aimbot_Hitscan_Aim_Type == 1 && (!IsFiring(pCmd, pWeapon) || !pWeapon->HasPrimaryAmmoForShot()))
 		return false;
 
@@ -444,7 +452,8 @@ void CAimbotHitscan::Aim(CUserCmd* pCmd, C_TFPlayer* pLocal, const Vec3& vAngles
 		// Silent
 		case 1:
 		{
-			if (G::bCanPrimaryAttack)
+			// Always death-stare on speedhack
+			if (G::bCanPrimaryAttack || (CFG::Exploits_Warp_Mode == 2 && Shifting::bShifting && Shifting::bShiftingWarp))
 			{
 				H::AimUtils->FixMovement(pCmd, vAngleTo);
 				pCmd->viewangles = vAngleTo;

@@ -1137,7 +1137,11 @@ bool CAimbotProjectile::GetTarget(C_TFPlayer* pLocal, C_TFWeaponBase* pWeapon, c
 
 bool CAimbotProjectile::ShouldAim(const CUserCmd* pCmd, C_TFPlayer* pLocal, C_TFWeaponBase* pWeapon)
 {
-	return CFG::Aimbot_Projectile_Aim_Type != 1 || IsFiring(pCmd, pLocal, pWeapon) && pWeapon->HasPrimaryAmmoForShot();
+	/*
+	Always death-stare on speedhack
+	Reason to fix prediction when warping
+	*/
+	return CFG::Aimbot_Projectile_Aim_Type != 1 || IsFiring(pCmd, pLocal, pWeapon) && pWeapon->HasPrimaryAmmoForShot() || (CFG::Exploits_Warp_Mode == 2 && Shifting::bShifting && Shifting::bShiftingWarp);
 }
 
 void CAimbotProjectile::Aim(CUserCmd* pCmd, C_TFPlayer* pLocal, C_TFWeaponBase* pWeapon, const Vec3& vAngles)
@@ -1165,7 +1169,8 @@ void CAimbotProjectile::Aim(CUserCmd* pCmd, C_TFPlayer* pLocal, C_TFWeaponBase* 
 
 		case 1:
 		{
-			if (m_CurProjInfo.Flamethrower ? true : G::bCanPrimaryAttack)
+			// Always death-stare on speedhack
+			if (m_CurProjInfo.Flamethrower ? true : G::bCanPrimaryAttack || (CFG::Exploits_Warp_Mode == 2 && Shifting::bShifting && Shifting::bShiftingWarp))
 			{
 				H::AimUtils->FixMovement(pCmd, vAngleTo);
 
